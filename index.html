@@ -66,7 +66,8 @@
                     <span class="letter col-1  border border-danger"></span>
                     <!-- /ko -->
                     <!-- ko if: (!$root.isHidden(letter)) -->
-                    <span class="letter col-1  border border-success" data-bind="text: letter"></span>
+                    <span class="letter col-1  border border-success"
+                        data-bind="text: letter, css: $root.isCurrentLetter(letter) == true ? 'bg-warning' : ''"></span>
                     <!-- /ko -->
                 </div>
 
@@ -96,7 +97,16 @@
     </div>
     <script>
         // Activates knockout.js        
-        var app = new AppViewModel("איך קראתי לו כשנולד ?", "אביב", 2, 100, ['ל', 'ך', 'כ', 'ת']);
+        var app = new AppViewModel(
+            "איך קראתי לו כשנולד ?",
+            "אביב",
+            2,
+            100,
+            ['ל', 'ך', 'כ', 'ת'],
+            'לא נכון! זהירות נשאר רק עוד נסיון אחד',
+            `צטערת!!
+             לא בא בלובה בחיים שלך`)
+            ;
         ko.applyBindings(app);        
     </script>
 

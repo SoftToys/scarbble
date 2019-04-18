@@ -1,5 +1,7 @@
 class AppViewModel {
-    constructor(riddleText, correctAnswer, maxTries, gameId, freeLetters) {
+    constructor(riddleText, correctAnswer, maxTries, gameId, freeLetters, badTryText, maxTriesReachedText) {
+        this.badTryText = badTryText;
+        this.maxTriesReachedText = maxTriesReachedText;
         this.correctAnswer = correctAnswer;
         this.maxTries = maxTries;
         this.answer = '';
@@ -11,9 +13,12 @@ class AppViewModel {
         this.revealedLetters = letters ? JSON.parse(letters) : freeLetters;
         this.winDate = ko.observable(localStorage.getItem(`${gameId}#wonDate`) || 0);
         var urlParams = new URLSearchParams(window.location.search);
+        this.currentLetter = '';
         if (urlParams.has("l")) {
-            this.revealLetter(urlParams.get("l"));
+            this.currentLetter = urlParams.get("l");
+            this.revealLetter(this.currentLetter);
         }
+
 
         this.triesLeft = ko.observable(this.maxTries - this.tries);
     }
@@ -25,18 +30,23 @@ class AppViewModel {
         if (letter == "?") return false;
         return this.revealedLetters.findIndex(l => l.toLowerCase() == letter.toLowerCase()) == -1;
     }
+    isCurrentLetter(letter) {
+        return letter == this.currentLetter;
+    }
 
     submitAnswer() {
-        if (this.tries >= this.maxTries) {
-            alert("צטערת!!");
-            return;
-        }
         this.tries++;
         this.triesLeft(this.maxTries - this.tries);
+        if (this.tries >= this.maxTries) {
+            alert(this.maxTriesReachedText);
+            return;
+        }
         localStorage.setItem(`${this.gameId}#tries`, this.tries);
         if (this.correctAnswer.toLowerCase() == this.answer.toLocaleLowerCase()) {
             this.winDate(new Date().getTime());
             localStorage.setItem(`${this.gameId}#wonDate`, new Date().getTime());
+        } else {
+            alert(this.badTryText);
         }
     }
     won() {
