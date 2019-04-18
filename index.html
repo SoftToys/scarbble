@@ -94,6 +94,22 @@
             <span data-bind="text: winTime()"></span>
         </div>
         <!-- /ko -->
+        <!-- ko if: (codesHelp.length > 0) -->
+        <button class="btn btn-link" data-bind="click: toggleHelp">הצג/הסתר רמזים</button>
+        <div class="codes-help-section" data-bind="visible: shouldShowHelp">
+            <div data-bind="foreach: { data: codesHelp, as: 'help' }">
+                <form>
+                    <div class="form-check rtl-check">
+                        <input type="checkbox" class="form-check-input" id="defaultCheck1"
+                            data-bind="checked: help.done, click: $root.saveHelp($root) , attr: { id: $index}">
+                        <label class="form-check-label" for="defaultCheck1"
+                            data-bind="text: help.text , attr: { for: $index}"></label>
+                        <span data-bind="text:  '.' + ($index()+1) "></span>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- /ko -->
     </div>
     <script>
         // Activates knockout.js        
@@ -105,7 +121,17 @@
             ['ל', 'ך', 'כ', 'ת'],
             'לא נכון! זהירות נשאר רק עוד נסיון אחד',
             `צטערת!!
-             לא בא בלובה בחיים שלך`)
+             לא בא בלובה בחיים שלך`,
+            [
+                "באיזור החניון נעול לו זיכרון אהוב",
+                " בקומת המעבר לחיים הבוגרים, כשאוכלים הרבה אוכל צריך להוציא אותו ",
+                "כשמקבלים מכתב צריך לחפש טוב טוב",
+                "ביציאה לחופש הירוק מסתתר לו",
+                "בחדר הטלוויזיה יש מי ששולט על העיניינים",
+                "מתחת לכפתור הבריחה",
+                "בפיקוד של הצבע האדום",
+                "מוביל הגוזלים יכול להפתיע",
+            ])
             ;
         ko.applyBindings(app);        
     </script>

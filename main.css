@@ -35,3 +35,11 @@ form{
 .row{
     margin-left: 0px !important;
 }
+.rtl-check{
+    position: relative;    
+}
+
+.rtl-check input{
+    position: absolute;    
+    right: 5px;
+}

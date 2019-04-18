@@ -1,5 +1,12 @@
 class AppViewModel {
-    constructor(riddleText, correctAnswer, maxTries, gameId, freeLetters, badTryText, maxTriesReachedText) {
+    constructor(riddleText, correctAnswer, maxTries, gameId, freeLetters, badTryText, maxTriesReachedText, codesHelpArray) {
+        this.shouldShowHelp = ko.observable(localStorage.getItem(`${gameId}#shouldShowHelp`) || true);
+        this.codesHelp = codesHelpArray.map((t, index) => {
+            return {
+                text: t,
+                done: ko.observable(JSON.parse(localStorage.getItem(`${gameId}#help#${index}`)) || false)
+            };
+        });
         this.badTryText = badTryText;
         this.maxTriesReachedText = maxTriesReachedText;
         this.correctAnswer = correctAnswer;
@@ -56,5 +63,14 @@ class AppViewModel {
     winTime() {
         const wd = this.winDate();
         return new Date(Number(wd)).toLocaleTimeString();
+    }
+    toggleHelp() {
+        this.shouldShowHelp(!this.shouldShowHelp());
+        localStorage.setItem(`${this.gameId}#shouldShowHelp`, this.shouldShowHelp());
+    }
+    saveHelp(that) {
+        that.codesHelp.forEach((help, index) => {
+            localStorage.setItem(`${this.gameId}#help#${index}`, this.codesHelp[index].done());
+        });
     }
 }
