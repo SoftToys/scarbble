@@ -46,3 +46,8 @@ form{
 .codes-help-section{
     padding-right: 15px;
 }
+@media only screen and (max-width: 600px) {
+    .btn{
+        width: 100%;
+    }
+}
