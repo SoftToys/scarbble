@@ -46,7 +46,6 @@ class AppViewModel {
             this.tries++;
             this.triesLeft(this.maxTries - this.tries);
             if (this.tries >= this.maxTries) {
-                this.tries = 0;
                 this.triesLeft(0);
                 alert(this.maxTriesReachedText);
                 return;
