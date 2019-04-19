@@ -42,20 +42,27 @@ class AppViewModel {
     }
 
     submitAnswer() {
+        debugger;
         if (this.answer().length > 0) {
-            this.tries++;
-            this.triesLeft(this.maxTries - this.tries);
-            if (this.tries >= this.maxTries) {
+            if (this.triesLeft() <= 0) {
                 this.triesLeft(0);
                 alert(this.maxTriesReachedText);
                 return;
             }
+
+            this.tries++;
+            this.triesLeft(this.maxTries - this.tries);
+
             localStorage.setItem(`${this.gameId}#tries`, this.tries);
             if (this.correctAnswer.toLowerCase() == this.answer().toLocaleLowerCase()) {
                 this.winDate(new Date().getTime());
                 localStorage.setItem(`${this.gameId}#wonDate`, new Date().getTime());
             } else {
-                alert(this.badTryText);
+                if (this.triesLeft() > 0) {
+                    alert(this.badTryText);
+                } else {
+                    alert(this.maxTriesReachedText);
+                }
             }
         }
     }
