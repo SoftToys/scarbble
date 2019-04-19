@@ -35,7 +35,7 @@
 <body class="container-fluid main-container">
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">Sasson's אפיקוששון@בניה</a>
+        <a class="navbar-brand" href="#">אפיקוששון@בניה</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -77,15 +77,17 @@
         <form>
 
             <div class="form-group">
-                <input data-bind="value: answer" type="text" class="form-control input-lg" style="direction:RTL"
-                    id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="התשובה שלי..">
-                <small id="emailHelp" class="form-text text-muted">
-                    <span data-bind="text: triesLeft"></span>
+                <input
+                    data-bind="value: answer, attr: { placeholder: 'התשובה שלי..' + triesLeft().toString() + ' נסיונות נשארו'}"
+                    type="text" class="form-control input-lg" style="direction:RTL" id="exampleInputEmail1"
+                    aria-describedby="emailHelp">
+                <small id="emailHelp" class="form-text text-danger" data-bind="visible: (triesLeft() == 1)">
                     &nbsp;
-                    <span>נסיונות נשארו</span>
+                    <span>זהירות!!! נסיון אחרון</span>
                 </small>
             </div>
-            <button type="submit" class="btn btn-primary" data-bind="click: submitAnswer">בדוק</button>
+            <button type="submit" class="btn"
+                data-bind="click: submitAnswer, css: $root.triesLeft() == 1 ? 'btn-danger' : 'btn-primary'">בדוק</button>
         </form>
         <!-- /ko -->
         <!-- ko if: ($root.won()) -->
@@ -104,7 +106,6 @@
                             data-bind="checked: help.done, click: $root.saveHelp($root) , attr: { id: $index}">
                         <label class="form-check-label" for="defaultCheck1"
                             data-bind="text: help.text , attr: { for: $index}"></label>
-                        <span data-bind="text:  '.' + ($index()+1) "></span>
                     </div>
                 </form>
             </div>
@@ -134,10 +135,6 @@
             ])
             ;
         ko.applyBindings(app);        
-    </script>
-
-    <script>
-
     </script>
 </body>
 

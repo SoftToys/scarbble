@@ -11,7 +11,7 @@ class AppViewModel {
         this.maxTriesReachedText = maxTriesReachedText;
         this.correctAnswer = correctAnswer;
         this.maxTries = maxTries;
-        this.answer = '';
+        this.answer = ko.observable('');
         this.tries = localStorage.getItem(`${gameId}#tries`) || 0;
         this.gameId = gameId;
         this.words = riddleText.split(" ").map(w => { return { word: w }; });
@@ -42,18 +42,20 @@ class AppViewModel {
     }
 
     submitAnswer() {
-        this.tries++;
-        this.triesLeft(this.maxTries - this.tries);
-        if (this.tries >= this.maxTries) {
-            alert(this.maxTriesReachedText);
-            return;
-        }
-        localStorage.setItem(`${this.gameId}#tries`, this.tries);
-        if (this.correctAnswer.toLowerCase() == this.answer.toLocaleLowerCase()) {
-            this.winDate(new Date().getTime());
-            localStorage.setItem(`${this.gameId}#wonDate`, new Date().getTime());
-        } else {
-            alert(this.badTryText);
+        if (this.answer().length > 0) {
+            this.tries++;
+            this.triesLeft(this.maxTries - this.tries);
+            if (this.tries >= this.maxTries) {
+                alert(this.maxTriesReachedText);
+                return;
+            }
+            localStorage.setItem(`${this.gameId}#tries`, this.tries);
+            if (this.correctAnswer.toLowerCase() == this.answer().toLocaleLowerCase()) {
+                this.winDate(new Date().getTime());
+                localStorage.setItem(`${this.gameId}#wonDate`, new Date().getTime());
+            } else {
+                alert(this.badTryText);
+            }
         }
     }
     won() {
