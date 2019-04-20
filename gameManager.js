@@ -83,4 +83,11 @@ class AppViewModel {
             localStorage.setItem(`${this.gameId}#help#${index}`, this.codesHelp[index].done());
         });
     }
+    clearAll() {
+        if (confirm("בטוח שתרצו להתחיל מחדש?")) {
+            localStorage.clear();
+            location.reload(true);
+        }
+
+    }
 }
