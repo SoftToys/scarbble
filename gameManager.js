@@ -1,31 +1,45 @@
+/**
+ * config 
+ *  */
+
 class AppViewModel {
-    constructor(riddleText, correctAnswer, maxTries, gameId, freeLetters, badTryText, maxTriesReachedText, codesHelpArray) {
-        this.shouldShowHelp = ko.observable(localStorage.getItem(`${gameId}#shouldShowHelp`) || true);
-        this.codesHelp = codesHelpArray.map((t, index) => {
+    /**
+        * @param {Object} config - game config
+        * @param {string} config.riddleTextEncrypted - riddle full
+        * @param {string} config.correctAnswerHased - base64 of hased answer
+        * @param {number} config.maxTries - The employee's department.
+        * @param {string} config.gameId - game id
+        * @param {string} config.freeLetters - freeLetters
+        * @param {string} config.badTryText - badTryText
+        * @param {string} config.maxTriesReachedText - maxTriesReachedText
+        * @param {string[]} config.codesHelpArray - codes Help texts
+     */
+    constructor(config) {
+        this.shouldShowHelp = ko.observable(localStorage.getItem(`${config.gameId}#shouldShowHelp`) || true);
+        this.codesHelp = config.codesHelpArray.map((t, index) => {
             return {
                 text: t,
-                done: ko.observable(JSON.parse(localStorage.getItem(`${gameId}#help#${index}`)) || false)
+                done: ko.observable(JSON.parse(localStorage.getItem(`${config.gameId}#help#${index}`)) || false)
             };
         });
-        this.badTryText = badTryText;
-        this.maxTriesReachedText = maxTriesReachedText;
-        this.correctAnswer = correctAnswer;
-        this.maxTries = maxTries;
+        this.badTryText = config.badTryText;
+        this.maxTriesReachedText = config.maxTriesReachedText;
+        this.correctAnswerHashed = config.correctAnswerHased;
+        this.maxTries = config.maxTries;
         this.answer = ko.observable('');
-        this.tries = localStorage.getItem(`${gameId}#tries`) || 0;
-        this.gameId = gameId;
-        this.words = riddleText.split(" ").map(w => { return { word: w }; });
+        this.tries = localStorage.getItem(`${config.gameId}#tries`) || 0;
+        this.gameId = config.gameId;
+        this.words = decodeURIComponent(atob(config.riddleTextEncrypted)).split(" ").map(w => { return { word: w }; });
         this.revealedLetters = [];
-        const letters = localStorage.getItem(`${gameId}#letter`);
-        this.revealedLetters = letters ? JSON.parse(letters) : freeLetters;
-        this.winDate = ko.observable(localStorage.getItem(`${gameId}#wonDate`) || 0);
+        const letters = localStorage.getItem(`${config.gameId}#letter`);
+        this.revealedLetters = letters ? JSON.parse(letters) : config.freeLetters;
+        this.winDate = ko.observable(localStorage.getItem(`${config.gameId}#wonDate`) || 0);
         var urlParams = new URLSearchParams(window.location.search);
         this.currentLetter = '';
         if (urlParams.has("l")) {
-            this.currentLetter = urlParams.get("l");
+            this.currentLetter = decodeURIComponent(atob(urlParams.get("l")));
             this.revealLetter(this.currentLetter);
         }
-
 
         this.triesLeft = ko.observable(this.maxTries - this.tries);
     }
@@ -41,8 +55,7 @@ class AppViewModel {
         return letter == this.currentLetter;
     }
 
-    submitAnswer() {
-        debugger;
+    async submitAnswer() {
         if (this.answer().length > 0) {
             if (this.triesLeft() <= 0) {
                 this.triesLeft(0);
@@ -54,7 +67,9 @@ class AppViewModel {
             this.triesLeft(this.maxTries - this.tries);
 
             localStorage.setItem(`${this.gameId}#tries`, this.tries);
-            if (this.correctAnswer.toLowerCase() == this.answer().toLocaleLowerCase()) {
+            const hashedAnswer = await this.digestMessage(this.answer());
+
+            if (this.correctAnswerHashed == hashedAnswer) {
                 this.winDate(new Date().getTime());
                 localStorage.setItem(`${this.gameId}#wonDate`, new Date().getTime());
             } else {
@@ -65,6 +80,17 @@ class AppViewModel {
                 }
             }
         }
+    }
+    async digestMessage(message) {
+        const encoder = new TextEncoder();
+        const data = encoder.encode(message);
+        const bytes = await window.crypto.subtle.digest('SHA-256', data);
+
+        const hashed = btoa(
+            new Uint8Array(bytes)
+                .reduce((data, byte) => data + String.fromCharCode(byte), '')
+        );
+        return hashed;
     }
     won() {
         const wd = this.winDate();

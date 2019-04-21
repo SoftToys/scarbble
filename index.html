@@ -118,25 +118,27 @@
     <script>
         // Activates knockout.js        
         var app = new AppViewModel(
-            "איך קראתי לו כשנולד ?",
-            "אביב",
-            2,
-            100,
-            ['ל', 'ך', 'כ', 'ת'],
-            'לא נכון! זהירות נשאר רק עוד נסיון אחד',
-            `צטערת!!
+            {
+                gameId: 100,
+                maxTries: 2,
+                riddleTextEncrypted: "JUQ3JTkwJUQ3JTk5JUQ3JTlBJTIwJUQ3JUE3JUQ3JUE4JUQ3JTkwJUQ3JUFBJUQ3JTk5JTIwJUQ3JTlDJUQ3JTk1JTIwJUQ3JTlCJUQ3JUE5JUQ3JUEwJUQ3JTk1JUQ3JTlDJUQ3JTkzJTIwJTNG",
+                correctAnswerHased: "gTlqPWLDRnSyZ5awtA+A0CydHbEEYldBwuIoqS0VbDQ=",
+                freeLetters: ['ל', 'ך', 'כ', 'ת'],
+                badTryText: 'לא נכון! זהירות נשאר רק עוד נסיון אחד',
+                maxTriesReachedText: `צטערת!!
              לא בא בלובה בחיים שלך`,
-            [
-                "באיזור החניון נעול לו זיכרון אהוב",
-                " בקומת המעבר לחיים הבוגרים, כשאוכלים הרבה אוכל צריך להוציא אותו ",
-                "כשמקבלים מכתב צריך לחפש טוב טוב",
-                "אחרי היציאה לחופש הירוק מסתתר לו",
-                "בחדר הטלוויזיה יש מי ששולט על העיניינים",
-                "מתחת לכפתור הבריחה",
-                "בפיקוד של הצבע האדום",
-                "מוביל הגוזלים יכול להפתיע",
-            ])
-            ;
+                codesHelpArray: [
+                    "באיזור החניון נעול לו זיכרון אהוב",
+                    " בקומת המעבר לחיים הבוגרים, כשאוכלים הרבה אוכל צריך להוציא אותו ",
+                    "כשמקבלים מכתב צריך לחפש טוב טוב",
+                    "אחרי היציאה לחופש הירוק מסתתר לו",
+                    "בחדר הטלוויזיה יש מי ששולט על העיניינים",
+                    "מתחת לכפתור הבריחה",
+                    "בפיקוד של הצבע האדום",
+                    "מוביל הגוזלים יכול להפתיע",
+                ]
+            });
+        ;
         ko.applyBindings(app);        
     </script>
 </body>
