@@ -36,6 +36,7 @@ class AppViewModel {
         this.winDate = ko.observable(localStorage.getItem(`${config.gameId}#wonDate`) || 0);
         var urlParams = new URLSearchParams(window.location.search);
         this.currentLetter = '';
+        this.debug = JSON.parse(urlParams.get("debug")) == true;
         if (urlParams.has("l")) {
             this.currentLetter = decodeURIComponent(atob(urlParams.get("l")));
             this.revealLetter(this.currentLetter);
