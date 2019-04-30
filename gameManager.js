@@ -1,7 +1,3 @@
-/**
- * config 
- *  */
-
 class AppViewModel {
     /**
         * @param {Object} config - game config
@@ -22,6 +18,8 @@ class AppViewModel {
                 done: ko.observable(JSON.parse(localStorage.getItem(`${config.gameId}#help#${index}`)) || false)
             };
         });
+        this.enterCode = ko.observable(false);
+        this.manualCode = ko.observable();
         this.badTryText = config.badTryText;
         this.maxTriesReachedText = config.maxTriesReachedText;
         this.correctAnswerHashed = config.correctAnswerHased;
@@ -29,31 +27,75 @@ class AppViewModel {
         this.answer = ko.observable('');
         this.tries = localStorage.getItem(`${config.gameId}#tries`) || 0;
         this.gameId = config.gameId;
-        this.words = decodeURIComponent(atob(config.riddleTextEncrypted)).split(" ").map(w => { return { word: w }; });
+        this.words = ko.observableArray(decodeURIComponent(atob(config.riddleTextEncrypted)).split(" ").map(w => { return { word: w }; }));
         this.revealedLetters = [];
         const letters = localStorage.getItem(`${config.gameId}#letter`);
         this.revealedLetters = letters ? JSON.parse(letters) : config.freeLetters;
         this.winDate = ko.observable(localStorage.getItem(`${config.gameId}#wonDate`) || 0);
         var urlParams = new URLSearchParams(window.location.search);
-        this.currentLetter = '';
+        this.currentLetter = ko.observable('');
         this.debug = JSON.parse(urlParams.get("debug")) == true;
+        this.qrScannerOpened = ko.observable(false);
         if (urlParams.has("l")) {
-            this.currentLetter = decodeURIComponent(atob(urlParams.get("l")));
-            this.revealLetter(this.currentLetter);
+            this.currentLetter(decodeURIComponent(atob(urlParams.get("l"))));
+            this.revealLetter(this.currentLetter());
         }
 
         this.triesLeft = ko.observable(this.maxTries - this.tries);
     }
+    async toggleCodeScanner() {
+        this.enterCode(!this.enterCode());
+        if (this.qrScanner) {
+            this.qrScanner.destroy();
+            this.qrScanner = null;
+            this.qrScannerOpened(false);
+            return;
+        }
+        const hasCam = await QrScanner.hasCamera();
+        if (hasCam) {
+
+            const videoElem = document.querySelector('video');
+
+            this.qrScanner = new window.QrScanner(videoElem, result => {
+                console.log('decoded qr code:', result);
+                if (result && result.length > 0) {
+                    //this.currentLetter(decodeURIComponent(atob(result)));
+                    //this.revealLetter(this.currentLetter());
+                    this.qrScanner.destroy();
+                    this.qrScanner = null;
+                    this.qrScannerOpened(false);
+                    this.useCode(result);
+                }
+            }, 200);
+            this.qrScanner.start()
+            this.qrScannerOpened(true);
+        }
+    }
+    submitManualCode() {
+        if (this.manualCode() && this.manualCode().length > 0) {
+            this.useCode(this.manualCode());
+        }
+    }
+    useCode(letterCode) {
+        let searchParams = new URLSearchParams(window.location.search);
+        searchParams.set("l", letterCode);
+        window.location.href = `${window.location.href.split('?')[0]}?${searchParams.toString()}`;
+    }
     revealLetter(letter) {
         this.revealedLetters.push(letter);
         localStorage.setItem(`${this.gameId}#letter`, JSON.stringify(this.revealedLetters))
+        this.words.valueHasMutated();
     }
     isHidden(letter) {
         if (letter == "?") return false;
         return this.revealedLetters.findIndex(l => l.toLowerCase() == letter.toLowerCase()) == -1;
     }
     isCurrentLetter(letter) {
-        return letter == this.currentLetter;
+        const isCurrent = letter == this.currentLetter();
+        if (isCurrent) {
+            return true;
+        }
+        return false;
     }
 
     async submitAnswer() {

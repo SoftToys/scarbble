@@ -30,9 +30,15 @@
             border: 2px solid lightskyblue;
         }
     </style>
+    <script type="module">
+        QrScanner.WORKER_PATH = './code-scanner/qr-scanner-worker.min.js';
+        import QrScanner from './code-scanner/qr-scanner.min.js';
+        window.QrScanner = QrScanner;
+    </script>
 </head>
 
 <body class="container-fluid main-container">
+
 
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">אפיקוששון@בניה</a>
@@ -53,6 +59,20 @@
         </div>
     </nav>
 
+    <button class="btn btn-link" data-bind="click: toggleCodeScanner">!יש לי קוד</button>
+    <div class="container video-container" data-bind="visible: enterCode">
+        <div data-bind="visible: qrScannerOpened">
+            <div>סרוק קוד</div>
+            <video></video>
+        </div>
+
+        <div class="form-group">
+            <input data-bind="value: manualCode" placeholder="או הזן קוד ידנית.." type="text"
+                class="form-control input-sm" style="direction:RTL" id="manualCodeId">
+        </div>
+        <button type="submit" class="btn btn-info" data-bind="click: submitManualCode">שלח</button>
+    </div>
+
 
     <!-- <div class="bg-secondary text-white h1">
         
@@ -62,13 +82,10 @@
 
             <div class="row">
                 <div class="row" data-bind="foreach: { data: word.split('').reverse().join(''), as: 'letter' }">
-                    <!-- ko if: ($root.isHidden(letter)) -->
-                    <span class="letter col-1  border border-danger"></span>
-                    <!-- /ko -->
-                    <!-- ko if: (!$root.isHidden(letter)) -->
+                    <span class="letter col-1  border border-danger" data-bind="visible: $root.isHidden(letter)"></span>
                     <span class="letter col-1  border border-success"
-                        data-bind="text: letter, css: $root.isCurrentLetter(letter) == true ? 'bg-warning' : ''"></span>
-                    <!-- /ko -->
+                        data-bind="visible: !$root.isHidden(letter), text: letter, css: $root.isCurrentLetter(letter) == true ? 'bg-warning' : ''">
+                    </span>
                 </div>
 
             </div>

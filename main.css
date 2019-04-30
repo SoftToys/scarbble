@@ -56,3 +56,12 @@ form{
     padding-top: 20px;
     padding-bottom: 10px;
 }
+video{
+    max-width: 400px;
+    max-height: 400px;
+    width: 60%;
+}
+.video-container{
+    text-align: center;
+}
+
