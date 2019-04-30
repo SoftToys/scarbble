@@ -60,7 +60,8 @@
     </nav>
 
     <button class="btn btn-link" data-bind="click: toggleCodeScanner">!יש לי קוד</button>
-    <div class="container video-container" data-bind="visible: enterCode">
+    <div class="container video-container border border-right-0 border-top-0 border-left-0 mb-3"
+        data-bind="visible: enterCode">
         <div data-bind="visible: qrScannerOpened">
             <div>סרוק קוד</div>
             <video></video>
@@ -70,7 +71,7 @@
             <input data-bind="value: manualCode" placeholder="או הזן קוד ידנית.." type="text"
                 class="form-control input-sm" style="direction:RTL" id="manualCodeId">
         </div>
-        <button type="submit" class="btn btn-info" data-bind="click: submitManualCode">שלח קוד</button>
+        <button type="submit" class="btn btn-info mb-3" data-bind="click: submitManualCode">שלח קוד</button>
     </div>
 
 
