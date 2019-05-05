@@ -1,6 +1,7 @@
 class AppViewModel {
     /**
         * @param {Object} config - game config
+        * @param {string} config.gameName - Game Name
         * @param {string} config.riddleTextEncrypted - riddle full
         * @param {string} config.correctAnswerHased - base64 of hased answer
         * @param {number} config.maxTries - The employee's department.
@@ -18,6 +19,7 @@ class AppViewModel {
                 done: ko.observable(JSON.parse(localStorage.getItem(`${config.gameId}#help#${index}`)) || false)
             };
         });
+        this.gameName = config.gameName;
         this.enterCode = ko.observable(false);
         this.manualCode = ko.observable();
         this.badTryText = config.badTryText;
@@ -37,8 +39,14 @@ class AppViewModel {
         this.debug = JSON.parse(urlParams.get("debug")) == true;
         this.qrScannerOpened = ko.observable(false);
         if (urlParams.has("l")) {
-            this.currentLetter(decodeURIComponent(atob(urlParams.get("l"))));
-            this.revealLetter(this.currentLetter());
+            try {
+                const letter = decodeURIComponent(atob(urlParams.get("l")));
+                this.currentLetter(letter);
+                this.revealLetter(this.currentLetter());
+            }
+            catch{
+                alert("קוד לא חוקי")
+            }
         }
 
         this.triesLeft = ko.observable(this.maxTries - this.tries);
@@ -64,7 +72,7 @@ class AppViewModel {
                     this.qrScanner.destroy();
                     this.qrScanner = null;
                     this.qrScannerOpened(false);
-                    this.useCode(result);
+                    this.redirectToPage(result);
                 }
             }, 200);
             this.qrScanner.start()
@@ -76,10 +84,13 @@ class AppViewModel {
             this.useCode(this.manualCode());
         }
     }
+    redirectToPage(pageUrl) {
+        window.location.href = pageUrl
+    }
     useCode(letterCode) {
         let searchParams = new URLSearchParams(window.location.search);
         searchParams.set("l", letterCode);
-        window.location.href = `${window.location.href.split('?')[0]}?${searchParams.toString()}`;
+        this.redirectToPage(`${window.location.href.split('?')[0]}?${searchParams.toString()}`);
     }
     revealLetter(letter) {
         this.revealedLetters.push(letter);
