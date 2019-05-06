@@ -1,8 +1,6 @@
 language: generic
 # safelist
 branches:
-  only:
-  - master
   deploy:
     provider: s3
     access_key_id: $AWS_ACCESS_KEY
@@ -10,3 +8,5 @@ branches:
     bucket: "codehunt"
     skip_cleanup: true
     region: "us-east-1"
+    on:
+      branch: master
