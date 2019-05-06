@@ -1,3 +1,4 @@
+language: generic
 # safelist
 branches:
   only:
