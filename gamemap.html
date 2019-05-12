@@ -123,7 +123,7 @@
 
 
             const centerX = polygons.map(p => p[0].lat).reduce((prev, curr) => prev + curr) / polygons.length;
-            const centerY = polygons.map(p => p.lng).reduce((prev, curr) => prev + curr) / polygons.length;
+            const centerY = polygons.map(p => p[0].lng).reduce((prev, curr) => prev + curr) / polygons.length;
 
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 17,
