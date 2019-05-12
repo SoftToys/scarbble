@@ -94,16 +94,18 @@
         function initMap() {
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 5,
-                center: { lat: 24.886, lng: -70.268 },
+                center: { lat: 32.280811, lng: 34.844703 },
                 mapTypeId: 'terrain'
             });
 
             // Define the LatLng coordinates for the polygon's path.
             var triangleCoords = [
-                { lat: 25.774, lng: -80.190 },
-                { lat: 18.466, lng: -66.118 },
-                { lat: 32.321, lng: -64.757 },
-                { lat: 25.774, lng: -80.190 }
+                { lat: 32.280708, lng: 34.844528 },
+                { lat: 32.280997, lng: 34.844315 },
+                { lat: 32.281053, lng: 34.844487 },
+                { lat: 32.280811, lng: 34.844703 },
+
+                { lat: 32.280708, lng: 34.844528 },
             ];
 
             // Construct the polygon.
