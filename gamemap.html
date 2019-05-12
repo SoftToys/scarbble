@@ -91,32 +91,61 @@
     <script>
         // This example creates a simple polygon representing the Bermuda Triangle.
 
+        function getPolygons() {
+
+            return [
+                [
+                    { lat: 32.280708, lng: 34.844528 },
+                    { lat: 32.280997, lng: 34.844315 },
+                    { lat: 32.281053, lng: 34.844487 },
+                    { lat: 32.280811, lng: 34.844703 },
+                    { lat: 32.280708, lng: 34.844528 }
+                ],
+                [
+                    { lat: 32.276983, lng: 34.846706 },
+                    { lat: 32.276660, lng: 34.846574 },
+                    { lat: 32.276435, lng: 34.846174 },
+                    { lat: 32.276651, lng: 34.846354 },
+                    { lat: 32.276983, lng: 34.846706 }
+                ],
+                [
+                    { lat: 32.280057, lng: 34.846750 },
+                    { lat: 32.280333, lng: 34.846508 },
+                    { lat: 32.280378, lng: 34.846623 },
+                    { lat: 32.280146, lng: 34.846819 },
+                    { lat: 32.280057, lng: 34.846750 }
+                ]
+            ];
+        }
         function initMap() {
+
+            const polygons = getPolygons();
+
+
+            const centerX = polygons.map(p => p[0].lat).reduce((prev, curr) => prev + curr) / polygons.length;
+            const centerY = polygons.map(p => p.lng).reduce((prev, curr) => prev + curr) / polygons.length;
+
             var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 5,
-                center: { lat: 32.280811, lng: 34.844703 },
+                zoom: 17,
+                center: { lat: centerX, lng: centerY },
                 mapTypeId: 'terrain'
             });
 
             // Define the LatLng coordinates for the polygon's path.
-            var triangleCoords = [
-                { lat: 32.280708, lng: 34.844528 },
-                { lat: 32.280997, lng: 34.844315 },
-                { lat: 32.281053, lng: 34.844487 },
-                { lat: 32.280811, lng: 34.844703 },
-                { lat: 32.280708, lng: 34.844528 }
-            ];
 
             // Construct the polygon.
-            var bermudaTriangle = new google.maps.Polygon({
-                paths: triangleCoords,
-                strokeColor: '#FF0000',
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: '#FF0000',
-                fillOpacity: 0.35
+            polygons.forEach(polygon => {
+                var mapPolygon = new google.maps.Polygon({
+                    paths: polygon,
+                    strokeColor: '#FF0000',
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: '#FF0000',
+                    fillOpacity: 0.35
+                });
+                mapPolygon.setMap(map);
             });
-            bermudaTriangle.setMap(map);
+
         }
     </script>
 
