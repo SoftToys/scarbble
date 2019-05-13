@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>צייד הקודים@עיר ימים</title>
+    <title>צייד הקודים</title>
     <link rel="icon" href="favicon.ico" type="image/gif" sizes="16x16">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="main.css" rel="stylesheet">
@@ -36,8 +36,6 @@
 </head>
 
 <body class="container-fluid main-container">
-
-
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#" data-bind="text: gameName"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -56,109 +54,92 @@
             </ul>
         </div>
     </nav>
-
-    <button class="btn btn-link" data-bind="click: toggleCodeScanner">!יש לי קוד</button>
-    <div class="container video-container border border-right-0 border-top-0 border-left-0 mb-3"
-        data-bind="visible: enterCode">
-        <div data-bind="visible: qrScannerOpened">
-            <div>סרוק קוד</div>
-            <video></video>
-        </div>
-
-        <div class="form-group">
-            <input data-bind="value: manualCode" placeholder="הזן קוד ידנית.." type="text" class="form-control input-sm"
-                style="direction:RTL" id="manualCodeId">
-        </div>
-        <button type="submit" class="btn btn-info mb-3" data-bind="click: submitManualCode">שלח קוד</button>
-    </div>
-
-
-    <!-- <div class="bg-secondary text-white h1">
-        
-    </div> -->
-    <div class="container">
-        <div data-bind="foreach: words">
-
-            <div class="row">
-                <div class="row" data-bind="foreach: { data: word.split('').reverse().join(''), as: 'letter' }">
-                    <span class="letter col-1  border border-danger" data-bind="visible: $root.isHidden(letter)"></span>
-                    <span class="letter col-1  border border-success"
-                        data-bind="visible: !$root.isHidden(letter), text: letter, css: $root.isCurrentLetter(letter) == true ? 'bg-warning' : ''">
-                    </span>
-                </div>
-
+    <div id="game-board" style="display: none;">
+        <button class="btn btn-link" data-bind="click: toggleCodeScanner">!יש לי קוד</button>
+        <div class="container video-container border border-right-0 border-top-0 border-left-0 mb-3"
+            data-bind="visible: enterCode">
+            <div data-bind="visible: qrScannerOpened">
+                <div>סרוק קוד</div>
+                <video></video>
             </div>
-        </div>
-        <!-- ko if: (!$root.won() ) -->
-        <form>
 
             <div class="form-group">
-                <input
-                    data-bind="value: answer, attr: { placeholder: 'התשובה שלי..' + triesLeft().toString() + ' נסיונות נשארו'}"
-                    type="text" class="form-control input-lg" style="direction:RTL" id="exampleInputEmail1"
-                    aria-describedby="emailHelp">
-                <small id="emailHelp" class="form-text text-danger" data-bind="visible: (triesLeft() == 1)">
-                    &nbsp;
-                    <span>זהירות!!! נסיון אחרון</span>
-                </small>
+                <input data-bind="value: manualCode" placeholder="הזן קוד ידנית.." type="text"
+                    class="form-control input-sm" style="direction:RTL" id="manualCodeId">
             </div>
-            <button type="submit" class="btn"
-                data-bind="click: submitAnswer, css: $root.triesLeft() == 1 ? 'btn-danger' : 'btn-primary'">בדוק</button>
-        </form>
-        <!-- /ko -->
-        <!-- ko if: ($root.won()) -->
-        <div class="win-block">
-            <div class="text-success">יא תותח</div>
-            <span data-bind="text: winTime()"></span>
+            <button type="submit" class="btn btn-info mb-3" data-bind="click: submitManualCode">שלח קוד</button>
         </div>
-        <!-- /ko -->
-        <!-- ko if: (codesHelp.length > 0) -->
-        <button class="btn btn-link" data-bind="click: toggleHelp">הצג/הסתר רמזים</button>
-        <div class="codes-help-section" data-bind="visible: shouldShowHelp">
-            <div data-bind="foreach: { data: codesHelp, as: 'help' }">
-                <form>
-                    <div class="form-check rtl-check">
-                        <input type="checkbox" class="form-check-input" id="defaultCheck1"
-                            data-bind="checked: help.done, click: $root.saveHelp($root) , attr: { id: $index}">
-                        <label class="form-check-label" for="defaultCheck1"
-                            data-bind="text: help.text , attr: { for: $index}"></label>
+
+
+        <!-- <div class="bg-secondary text-white h1">
+        
+    </div> -->
+        <div class="container">
+            <div data-bind="foreach: words">
+
+                <div class="row">
+                    <div class="row" data-bind="foreach: { data: word.split('').reverse().join(''), as: 'letter' }">
+                        <span class="letter col-1  border border-danger"
+                            data-bind="visible: $root.isHidden(letter)"></span>
+                        <span class="letter col-1  border border-success"
+                            data-bind="visible: !$root.isHidden(letter), text: letter, css: $root.isCurrentLetter(letter) == true ? 'bg-warning' : ''">
+                        </span>
                     </div>
-                </form>
+
+                </div>
             </div>
+            <!-- ko if: (!$root.won() ) -->
+            <form>
+
+                <div class="form-group">
+                    <input
+                        data-bind="value: answer, attr: { placeholder: 'התשובה שלי..' + triesLeft().toString() + ' נסיונות נשארו'}"
+                        type="text" class="form-control input-lg" style="direction:RTL" id="exampleInputEmail1"
+                        aria-describedby="emailHelp">
+                    <small id="emailHelp" class="form-text text-danger" data-bind="visible: (triesLeft() == 1)">
+                        &nbsp;
+                        <span>זהירות!!! נסיון אחרון</span>
+                    </small>
+                </div>
+                <button type="submit" class="btn"
+                    data-bind="click: submitAnswer, css: $root.triesLeft() == 1 ? 'btn-danger' : 'btn-primary'">בדוק</button>
+            </form>
+            <!-- /ko -->
+            <!-- ko if: ($root.won()) -->
+            <div class="win-block">
+                <div class="text-success">יא תותח</div>
+                <span data-bind="text: winTime()"></span>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: (codesHelp.length > 0) -->
+            <button class="btn btn-link" data-bind="click: toggleHelp">הצג/הסתר רמזים</button>
+            <div class="codes-help-section" data-bind="visible: shouldShowHelp">
+                <div data-bind="foreach: { data: codesHelp, as: 'help' }">
+                    <form>
+                        <div class="form-check rtl-check">
+                            <input type="checkbox" class="form-check-input" id="defaultCheck1"
+                                data-bind="checked: help.done, click: $root.saveHelp($root) , attr: { id: $index}">
+                            <label class="form-check-label" for="defaultCheck1"
+                                data-bind="text: help.text , attr: { for: $index}"></label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <!-- /ko -->
+            <!-- ko if: (debug) -->
+            <div class="footer border border-right-0 border-bottom-0 border-left-0">
+                <button class=" btn btn-outline-danger btn-sm" data-bind="click: clearAll">התחל מחדש</button>
+            </div>
+            <!-- /ko -->
         </div>
-        <!-- /ko -->
-        <!-- ko if: (debug) -->
-        <div class="footer border border-right-0 border-bottom-0 border-left-0">
-            <button class=" btn btn-outline-danger btn-sm" data-bind="click: clearAll">התחל מחדש</button>
-        </div>
-        <!-- /ko -->
     </div>
     <script>
-        // Activates knockout.js        
-        var app = new AppViewModel(
-            {
-                gameName: "צייד הקודים@IrYamim",
-                gameId: 102,
-                maxTries: 2,
-                riddleTextEncrypted: "JUQ3JTkwJUQ3JTk5JUQ3JTlBJTIwJUQ3JUE3JUQ3JUE4JUQ3JTkwJUQ3JUFBJUQ3JTk5JTIwJUQ3JTlDJUQ3JTk1JTIwJUQ3JTlCJUQ3JUE5JUQ3JUEwJUQ3JTk1JUQ3JTlDJUQ3JTkzJTIwJTNG",
-                correctAnswerHased: "gTlqPWLDRnSyZ5awtA+A0CydHbEEYldBwuIoqS0VbDQ=",
-                freeLetters: ['ל', 'ך', 'כ', 'ת'],
-                badTryText: 'לא נכון! זהירות נשאר רק עוד נסיון אחד',
-                maxTriesReachedText: `צטערת!!
-             לא בא בלובה בחיים שלך`,
-                codesHelpArray: [
-                    "באיזור החניון נעול לו זיכרון אהוב",
-                    " בקומת המעבר לחיים הבוגרים, כשאוכלים הרבה אוכל צריך להוציא אותו ",
-                    "כשמקבלים מכתב צריך לחפש טוב טוב",
-                    "אחרי היציאה לחופש הירוק מסתתר לו",
-                    "בחדר הטלוויזיה יש מי ששולט על העיניינים",
-                    "מתחת לכפתור הבריחה",
-                    "בפיקוד של הצבע האדום",
-                    "מוביל הגוזלים יכול להפתיע",
-                ]
-            });
-        ;
-        ko.applyBindings(app);        
+        $.getJSON("./games/100.config.json", (conf) => {
+            window.document.title = conf.gameName;
+            var app = new AppViewModel(conf);
+            ko.applyBindings(app);
+            $("#game-board").show();
+        })
     </script>
 </body>
 

@@ -9,15 +9,13 @@ class AppViewModel {
         * @param {string} config.freeLetters - freeLetters
         * @param {string} config.badTryText - badTryText
         * @param {string} config.maxTriesReachedText - maxTriesReachedText
-        * @param {string[]} config.codesHelpArray - codes Help texts
+        * @param {object[]} config.codesHelpArray - codes Help texts
      */
     constructor(config) {
         this.shouldShowHelp = ko.observable(localStorage.getItem(`${config.gameId}#shouldShowHelp`) || true);
         this.codesHelp = config.codesHelpArray.map((t, index) => {
-            return {
-                text: t,
-                done: ko.observable(JSON.parse(localStorage.getItem(`${config.gameId}#help#${index}`)) || false)
-            };
+            t.done = ko.observable(JSON.parse(localStorage.getItem(`${config.gameId}#help#${index}`)) || false);
+            return t;
         });
         this.gameName = config.gameName;
         this.enterCode = ko.observable(false);
@@ -121,7 +119,7 @@ class AppViewModel {
             this.triesLeft(this.maxTries - this.tries);
 
             localStorage.setItem(`${this.gameId}#tries`, this.tries);
-            const hashedAnswer = await this.digestMessage(this.answer());
+            const hashedAnswer = await this.digestMessage(this.answer().trim());
 
             if (this.correctAnswerHashed == hashedAnswer) {
                 this.winDate(new Date().getTime());

@@ -74,86 +74,46 @@
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB0KieIPSZPHTQlLFt30wusuY8ev3Zioxk&callback=initMap">
         </script>
 
-    <div class="container-fluid bg-secondary text-white">
-        <footer class="page-footer font-small blue">
-
-            <!-- Copyright -->
-            <div class="footer-copyright text-center py-3">© 2019 Copyright:
-                Sassons ששון
-            </div>
-            <div class="footer-copyright text-center py-3">
-                כל מי שמעתיק \ פורץ או עושה שימוש הזוי במוצר זה, לפחות שיהנה..
-            </div>
-            <!-- Copyright -->
-
-        </footer>
-    </div>
     <script>
-        function getPolygons() {
 
-            return [
-                [
-                    // matnas corner
-                    { lat: 32.280708, lng: 34.844528 },
-                    { lat: 32.280997, lng: 34.844315 },
-                    { lat: 32.281053, lng: 34.844487 },
-                    { lat: 32.280811, lng: 34.844703 },
-                    { lat: 32.280708, lng: 34.844528 }
-                ],
-                [
-                    // zalman shazar corner beni-berman
-                    { lat: 32.276983, lng: 34.846706 },
-                    { lat: 32.276843, lng: 34.846743 },
-                    { lat: 32.276660, lng: 34.846574 },
-                    { lat: 32.276435, lng: 34.846174 },
-                    { lat: 32.276651, lng: 34.846354 },
-                    { lat: 32.276983, lng: 34.846706 }
-                ],
-                [
-                    // sportech near soccer
-                    { lat: 32.280057, lng: 34.846750 },
-                    { lat: 32.280333, lng: 34.846508 },
-                    { lat: 32.280378, lng: 34.846623 },
-                    { lat: 32.280146, lng: 34.846819 },
-                    { lat: 32.280057, lng: 34.846750 }
-                ],
-                // malevski
-                [
-                    { lat: 32.278088, lng: 34.844143 },
-                    { lat: 32.278174, lng: 34.843972 },
-                    { lat: 32.278079, lng: 34.843775 },
-                    { lat: 32.277941, lng: 34.843875 },
-                    { lat: 32.277961, lng: 34.844043 },
-                    { lat: 32.278088, lng: 34.844143 },
-                ]
-            ];
-        }
         function initMap() {
 
-            const polygons = getPolygons();
+            $.getJSON("./games/101.config.json", (conf) => {
+                window.document.title = conf.gameName;
 
-            const centerX = polygons.map(p => p[0].lat).reduce((prev, curr) => prev + curr) / polygons.length;
-            const centerY = polygons.map(p => p[0].lng).reduce((prev, curr) => prev + curr) / polygons.length;
+                const polygons = conf.codesHelpArray;
 
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 17,
-                center: { lat: centerX, lng: centerY },
-                mapTypeId: 'terrain'
-            });
+                const centerX = polygons.map(p => p.coordinates[0].lat).reduce((prev, curr) => prev + curr) / polygons.length;
+                const centerY = polygons.map(p => p.coordinates[0].lng).reduce((prev, curr) => prev + curr) / polygons.length;
 
-            // Define the LatLng coordinates for the polygon's path.
-
-            // Construct the polygon.
-            polygons.forEach(polygon => {
-                var mapPolygon = new google.maps.Polygon({
-                    paths: polygon,
-                    strokeColor: '#FF0000',
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: '#FF0000',
-                    fillOpacity: 0.35
+                var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 17,
+                    center: { lat: centerX, lng: centerY },
+                    mapTypeId: 'terrain'
                 });
-                mapPolygon.setMap(map);
+
+                // Define the LatLng coordinates for the polygon's path.
+
+                // Construct the polygon.
+                for (let index = 0; index < polygons.length; index++) {
+                    const polygon = polygons[index];
+                    var mapPolygon = new google.maps.Polygon({
+                        paths: polygon.coordinates,
+                        strokeColor: '#FF0000',
+                        strokeOpacity: 0.8,
+                        strokeWeight: 2,
+                        fillColor: '#FF0000',
+                        fillOpacity: 0.35
+                    });
+                    mapPolygon.setMap(map);
+
+                    var marker = new google.maps.Marker({
+                        position: polygon.coordinates[0],
+                        label: `${index + 1}`,
+                        map: map
+                    });
+
+                }
             });
 
         }
