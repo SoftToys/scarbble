@@ -49,6 +49,9 @@
                     <a class="nav-link" href="#">לוח משחק <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link" href="gamemap.html">מפה</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link" href="help.html">עזרה</a>
                 </li>
             </ul>
@@ -121,6 +124,8 @@
                                 data-bind="checked: help.done, click: $root.saveHelp($root) , attr: { id: $index}">
                             <label class="form-check-label" for="defaultCheck1"
                                 data-bind="text: help.text , attr: { for: $index}"></label>
+                            <label class="form-check-label" for="defaultCheck1"
+                                data-bind="text:'. ' + ($index()+1), attr: { for: $index}"></label>
                         </div>
                     </form>
                 </div>
@@ -134,12 +139,25 @@
         </div>
     </div>
     <script>
-        $.getJSON("./games/100.config.json", (conf) => {
-            window.document.title = conf.gameName;
-            var app = new AppViewModel(conf);
-            ko.applyBindings(app);
-            $("#game-board").show();
-        })
+        var urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get(`gameid`)) {
+            window.localStorage.setItem("gameid", urlParams.get(`gameid`));
+            window.location = window.location.href.split('?')[0];
+        }
+        else {
+            const gameId = localStorage.getItem(`gameid`);
+            if (!gameId) {
+                alert("גישה לא חוקית למשחק!")
+            }
+            else {
+                $.getJSON(`./games/${gameId}.config.json`, (conf) => {
+                    window.document.title = conf.gameName;
+                    var app = new AppViewModel(conf);
+                    ko.applyBindings(app);
+                    $("#game-board").show();
+                });
+            }
+        }
     </script>
 </body>
 

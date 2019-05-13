@@ -62,7 +62,10 @@
                     <a class="nav-link" href="index.html">לוח משחק </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="help.html">עזרה<span class="sr-only">(current)</span></a>
+                    <a class="nav-link active" href="gamemap.html">מפה<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="help.html">עזרה</a>
                 </li>
             </ul>
         </div>
@@ -77,8 +80,9 @@
     <script>
 
         function initMap() {
+            const gameId = localStorage.getItem(`gameid`);
 
-            $.getJSON("./games/101.config.json", (conf) => {
+            $.getJSON(`./games/${gameId}.config.json`, (conf) => {
                 window.document.title = conf.gameName;
 
                 const polygons = conf.codesHelpArray;
