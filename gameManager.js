@@ -51,7 +51,7 @@ class AppViewModel {
         if (urlParams.has("scan")) {
             setTimeout(() => {
                 $("#scan-btn").trigger("click");
-            }, 100);
+            }, 1000);
         }
     }
     async toggleCodeScanner() {
