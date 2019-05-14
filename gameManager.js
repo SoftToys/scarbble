@@ -96,7 +96,6 @@ class AppViewModel {
         this.words.valueHasMutated();
     }
     isHidden(letter) {
-        if (letter == "?") return false;
         return this.revealedLetters.findIndex(l => l.toLowerCase() == letter.toLowerCase()) == -1;
     }
     isCurrentLetter(letter) {
