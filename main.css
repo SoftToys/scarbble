@@ -64,4 +64,11 @@ video{
 .video-container{
     text-align: center;
 }
-
+.clue-num{
+    position: absolute;
+    right: 5px;
+    font-weight: bolder;
+}
+.clue-label{
+    padding-right: 5px;
+}

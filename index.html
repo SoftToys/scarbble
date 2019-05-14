@@ -120,12 +120,14 @@
                 <div data-bind="foreach: { data: codesHelp, as: 'help' }">
                     <form>
                         <div class="form-check rtl-check">
+                            <!-- <label class="form-check-label" for="defaultCheck1"
+                                data-bind="text:'. ' + ($index()+1), attr: { for: $index}"></label> -->
+
                             <input type="checkbox" class="form-check-input" id="defaultCheck1"
                                 data-bind="checked: help.done, click: $root.saveHelp($root) , attr: { id: $index}">
-                            <label class="form-check-label" for="defaultCheck1"
-                                data-bind="text: help.text , attr: { for: $index}"></label>
-                            <label class="form-check-label" for="defaultCheck1"
-                                data-bind="text:'. ' + ($index()+1), attr: { for: $index}"></label>
+                            <span class="clue-num" data-bind="text: ($index()+1)"></span>
+                            <label class="form-check-label clue-label" for="defaultCheck1"
+                                data-bind="text: help.text, attr: { for: $index}"></label>
                         </div>
                     </form>
                 </div>
