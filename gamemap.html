@@ -80,7 +80,7 @@
                 // Construct the polygon.
                 for (let index = 0; index < polygons.length; index++) {
                     const polygon = polygons[index];
-                    var mapPolygon = new google.maps.Polygon({
+                    let mapPolygon = new google.maps.Polygon({
                         map: map,
                         paths: polygon.coordinates,
                         strokeColor: '#FF0000',
@@ -89,14 +89,19 @@
                         fillColor: '#FF0000',
                         fillOpacity: 0.35
                     });
-                    //mapPolygon.setMap(map);
+                    let infowindow = new google.maps.InfoWindow({
+                        content: `<div>${polygon.text}</div><div style="direction: rtl;"><a href="/index.html?scan=true">מצאתי!</a></div>`
+                    });
 
-                    var marker = new google.maps.Marker({
+
+                    let marker = new google.maps.Marker({
                         position: polygon.coordinates[0],
                         label: `${index + 1}`,
                         map: map
                     });
-
+                    marker.addListener('click', function () {
+                        infowindow.open(map, marker);
+                    });
                 }
             });
 
