@@ -49,7 +49,9 @@ class AppViewModel {
 
         this.triesLeft = ko.observable(this.maxTries - this.tries);
         if (urlParams.has("scan")) {
-            this.toggleCodeScanner();
+            setTimeout(() => {
+                this.toggleCodeScanner();
+            }, 0);
         }
     }
     async toggleCodeScanner() {
