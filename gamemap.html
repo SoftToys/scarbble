@@ -96,12 +96,12 @@
                     mapTypeId: 'terrain'
                 });
 
-                // Define the LatLng coordinates for the polygon's path.
-
+                // Define the LatLng coordinates for the polygon's path.                
                 // Construct the polygon.
                 for (let index = 0; index < polygons.length; index++) {
                     const polygon = polygons[index];
                     var mapPolygon = new google.maps.Polygon({
+                        map: map,
                         paths: polygon.coordinates,
                         strokeColor: '#FF0000',
                         strokeOpacity: 0.8,
@@ -109,7 +109,7 @@
                         fillColor: '#FF0000',
                         fillOpacity: 0.35
                     });
-                    mapPolygon.setMap(map);
+                    //mapPolygon.setMap(map);
 
                     var marker = new google.maps.Marker({
                         position: polygon.coordinates[0],
