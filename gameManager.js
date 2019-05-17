@@ -46,6 +46,7 @@ class AppViewModel {
                 alert("קוד לא חוקי")
             }
         }
+        this.notificationsPermissionsRequest();
 
         this.triesLeft = ko.observable(this.maxTries - this.tries);
         if (urlParams.has("scan")) {
@@ -53,7 +54,85 @@ class AppViewModel {
                 $("#scan-btn").trigger("click");
             }, 1000);
         }
+        this.gameEnded = JSON.parse(localStorage.getItem(`${this.gameId}#gameEnded`) || false);
+
+        this.notifications = config.notifications;
+        if (config.notifications && !this.gameEnded) {
+            setInterval(() => {
+                if (!this.gameEnded) {
+                    this.checkNotificationDeadLine();
+                }
+            }, 1000 * 60);
+        }
+
+        if (config.gameMaxTimeMin && !this.gameEnded) {
+            let endGameNotificationTime = localStorage.getItem(`${this.gameId}#end-time`);
+            const now = new Date().getTime();
+            if (!endGameNotificationTime) {
+                endGameNotificationTime = now + (config.gameMaxTimeMin * 60 * 1000);
+                localStorage.setItem(`${this.gameId}#end-time`, endGameNotificationTime);
+            }
+            const interval = setInterval(() => {
+                if (new Date().getTime() > endGameNotificationTime) {
+                    clearInterval(interval);
+                    localStorage.setItem(`${this.gameId}#gameEnded`, true);
+                    this.gameEnded = true;
+                    this.notify(config.gameEndedText);
+                }
+            }, 1000 * 60);
+        }
     }
+
+    checkNotificationDeadLine() {
+        const nextNotificationTime = localStorage.getItem(`${this.gameId}#notification`);
+        const now = new Date().getTime();
+        const notifyNum = Number(localStorage.getItem(`${this.gameId}#notification-count`) || 0);
+        if (!nextNotificationTime) {
+            const next = now + (this.notifications.intervalMin * 60 * 1000);
+            localStorage.setItem(`${this.gameId}#notification`, next);
+        }
+        else {
+            if (Number(nextNotificationTime) < now && notifyNum < this.notifications.maxNotification && this.winDate() == 0) {
+                localStorage.setItem(`${this.gameId}#notification-count`, notifyNum + 1);
+                const next = now + (this.notifications.intervalMin * 60 * 1000);
+                localStorage.setItem(`${this.gameId}#notification`, next);
+                this.notify(this.notifications.text);
+            }
+        }
+    }
+    notificationsPermissionsRequest() {
+        this.notificationsMethod = "alert";
+        if (!("Notification" in window)) {
+            this.notificationsMethod = "alert";
+        }
+        else if (Notification.permission === "granted") {
+            // If it's okay let's create a notification
+            this.notificationsMethod = "notifications";
+        }
+        else if (Notification.permission !== "denied") {
+            Notification.requestPermission().then((permission) => {
+                // If the user accepts, let's create a notification                
+                if (permission === "granted") {
+                    this.notificationsMethod = "notifications";
+                } else {
+                    this.notificationsMethod = "alert";
+                }
+            });
+        }
+
+    }
+    notify(text) {
+        if (this.notificationsMethod == "alert") {
+            alert(text);
+        }
+
+        // Let's check whether notification permissions have already been granted
+        else if (this.notificationsMethod == "notifications") {
+            // If it's okay let's create a notification
+            var notification = new Notification(text);
+        }
+    }
+
     async toggleCodeScanner() {
         this.enterCode(!this.enterCode());
         if (this.qrScanner) {
