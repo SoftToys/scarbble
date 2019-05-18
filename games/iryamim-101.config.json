@@ -1,10 +1,10 @@
 {
     "gameName": "צייד הקודים@IrYamim",
     "gameId": "iryamim-101",
-    "notifications": {
+    "helps": {
         "intervalMin": 20,
-        "text": "מגיעה לכם עזרה\nתוכלו לבקש אותה מההפקה, לציין מספר נקודה ",
-        "maxNotification": 4
+        "notificationText": "מגיעה לכם עזרה\nתוכלו לבקש אותה מההפקה, לציין מספר נקודה ",
+        "maxHelps": 3
     },
     "gameMaxTimeMin": 90,
     "gameEndedText": "היי\nנגמר הזמן\nיש לחזור לנקודת הסוף",

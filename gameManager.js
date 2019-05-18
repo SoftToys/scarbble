@@ -56,18 +56,23 @@ class AppViewModel {
         }
         this.gameEnded = JSON.parse(localStorage.getItem(`${this.gameId}#gameEnded`) || false);
 
-        this.notifications = config.notifications;
-        if (config.notifications && !this.gameEnded) {
+        const now = new Date().getTime();
+        this.helps = config.helps;
+
+        if (config.helps && !this.gameEnded) {
+            if (!localStorage.getItem(`${this.gameId}#help`)) {
+                const next = now + (this.helps.intervalMin * 60 * 1000);
+                localStorage.setItem(`${this.gameId}#help`, next);
+            }
             setInterval(() => {
                 if (!this.gameEnded) {
-                    this.checkNotificationDeadLine();
+                    this.checkHelpDeadLine();
                 }
-            }, 1000 * 60);
+            }, 1000 * 20);
         }
 
         if (config.gameMaxTimeMin && !this.gameEnded) {
             let endGameNotificationTime = localStorage.getItem(`${this.gameId}#end-time`);
-            const now = new Date().getTime();
             if (!endGameNotificationTime) {
                 endGameNotificationTime = now + (config.gameMaxTimeMin * 60 * 1000);
                 localStorage.setItem(`${this.gameId}#end-time`, endGameNotificationTime);
@@ -79,25 +84,20 @@ class AppViewModel {
                     this.gameEnded = true;
                     this.notify(config.gameEndedText);
                 }
-            }, 1000 * 60);
+            }, 1000 * 20);
         }
     }
 
-    checkNotificationDeadLine() {
-        const nextNotificationTime = localStorage.getItem(`${this.gameId}#notification`);
+    checkHelpDeadLine() {
+        const nextNotificationTime = localStorage.getItem(`${this.gameId}#help`);
         const now = new Date().getTime();
-        const notifyNum = Number(localStorage.getItem(`${this.gameId}#notification-count`) || 0);
-        if (!nextNotificationTime) {
-            const next = now + (this.notifications.intervalMin * 60 * 1000);
-            localStorage.setItem(`${this.gameId}#notification`, next);
-        }
-        else {
-            if (Number(nextNotificationTime) < now && notifyNum < this.notifications.maxNotification && this.winDate() == 0) {
-                localStorage.setItem(`${this.gameId}#notification-count`, notifyNum + 1);
-                const next = now + (this.notifications.intervalMin * 60 * 1000);
-                localStorage.setItem(`${this.gameId}#notification`, next);
-                this.notify(this.notifications.text);
-            }
+        const notifyNum = Number(localStorage.getItem(`${this.gameId}#help-count`) || 0);
+
+        if (Number(nextNotificationTime) < now && notifyNum < this.helps.maxHelps && this.winDate() == 0) {
+            localStorage.setItem(`${this.gameId}#help-count`, notifyNum + 1);
+            const next = now + (this.helps.intervalMin * 60 * 1000);
+            localStorage.setItem(`${this.gameId}#help`, next);
+            this.notify(this.helps.notificationText);
         }
     }
     notificationsPermissionsRequest() {
