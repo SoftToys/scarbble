@@ -1,6 +1,13 @@
 {
     "gameName": "צייד הקודים@IrYamim",
     "gameId": "iryamim-101",
+    "helps": {
+        "intervalMin": 20,
+        "notificationText": "מגיעה לכם עזרה\nתוכלו לבקש אותה מההפקה, לציין מספר נקודה ",
+        "maxHelps": 3
+    },
+    "gameMaxTimeMin": 90,
+    "gameEndedText": "היי\nנגמר הזמן\nיש לחזור לנקודת הסוף",
     "maxTries": 2,
     "riddleTextEncrypted": "JUQ3JTlFJUQ3JTk5JTIwJUQ3JTkwJUQ3JTk1JUQ3JTlFJUQ3JUE4JTIwJUQ3JUE5JUQ3JTkyJUQ3JUE5JUQ3JTlFJUQ3JTk5JUQ3JTlEJTIwJUQ3JTlCJUQ3JTkwJUQ3JTlDJUQ3JTk0JTIwJUQ3JTlFJUQ3JTk2JUQ3JTk5JUQ3JUE3JUQ3JTk5JUQ3JTlEJTIwJUQ3JTlDJUQ3JTk3JUQ3JUE3JUQ3JTlDJUQ3JTkwJUQ3JTk1JUQ3JUFBJTIwJTNG",
     "correctAnswerHased": "IP0Q3+lGMPVsrdJqR6fA5WVK26/JtN4edFxETKwq+/4=",
