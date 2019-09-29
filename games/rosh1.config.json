@@ -1,0 +1,50 @@
+{
+    "gameName": "צייד הקודים@ראש השנה",
+    "gameId": 104,
+    "maxTries": 2,
+    "riddleTextEncrypted": "JUQ3JTlFJUQ3JTk5JTIwJUQ3JUEwJUQ3JUE5JUQ3JTkwJUQ3JTk1JTIwJUQ3JTkwJUQ3JTk5JUQ3JUFBJUQ3JTlGJTIwJUQ3JTkwJUQ3JTk3JUQ3JUE4JUQ3JTk1JUQ3JUEwJUQ3JTk5JTIwJUQ3JTk0JUQ3JUE5JUQ3JTk5JUQ3JUE4JUQ3JTk5JUQ3JTlEJTNG",
+    "correctAnswersHased": [
+        "f8//prx+cFfiKu/OkbBzUZlBGTYgMezRCuhnhP4F0+0=",
+        "L6Ij5dJOxbMS0uV+1vdDRuS7pf83OZ6o9qmayFzZ/pk=",
+        "N2dILZlxqzx+TZ/dA54B01zj9F0b+VC058xsawovLZo=",
+        "zJYU6EuA86VpAerD8r6BnmlAke0xllo5NUZ0BDPBZ88="
+    ],
+    "freeLetters": [
+        "ל",
+        "מ",
+        "ם",
+        "נ",
+        "ן",
+        "?"
+    ],
+    "badTryText": "לא נכון! זהירות נשאר רק עוד נסיון אחד",
+    "maxTriesReachedText": "צטערת!!\n לא בא בלובה בחיים שלך",
+    "codesHelpArray": [
+        {
+            "text": "?מי שולט אם נזיע בגב בחדר מגורים",
+            "spotDescription": ""
+        },
+        {
+            "text": "בסינון הראשי של הקודים, המים יוצאים נקיים",
+            "spotDescription": ""
+        },
+        {
+            "text": "זהירות! 'קוד' בחצר! באיזור החניה"
+        },
+        {
+            "text": "בחדר של הסנביץ' המכשיר המטמטם מחביא אוצר"
+        },
+        {
+            "text": "!בחדר של הקטן, השאגה לא תרתיע אותנו מלחפש מאחור"
+        },
+        {
+            "text": "עונת פרי ההדר הניבה פרי חמוץ ומפתיע!"
+        },
+        {
+            "text": "הסעדת הקטנטנים מושיבה בתחתיה קוד"
+        },
+        {
+            "text": "כשתרוצו לשם באזעקה, שימו לב לידית!"
+        }
+    ]
+}
