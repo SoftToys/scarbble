@@ -51,6 +51,12 @@ form{
         width: 100%;
     }
 }
+.box{
+    display: flex;
+    align-items: start;
+    justify-content: space-evenly;
+    flex-direction: row;
+}
 .footer{    
     margin-top: 100px;
     padding-top: 20px;

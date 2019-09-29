@@ -3,7 +3,9 @@
     "gameId": 102,
     "maxTries": 2,
     "riddleTextEncrypted": "JUQ3JTkwJUQ3JTk5JUQ3JTlBJTIwJUQ3JUE3JUQ3JUE4JUQ3JTkwJUQ3JUFBJUQ3JTk5JTIwJUQ3JTlDJUQ3JTk1JTIwJUQ3JTlCJUQ3JUE5JUQ3JUEwJUQ3JTk1JUQ3JTlDJUQ3JTkzJTIwJTNG",
-    "correctAnswerHased": "gTlqPWLDRnSyZ5awtA+A0CydHbEEYldBwuIoqS0VbDQ=",
+    "correctAnswersHased": [
+        "gTlqPWLDRnSyZ5awtA+A0CydHbEEYldBwuIoqS0VbDQ="
+    ],
     "freeLetters": [
         "ל",
         "ך",

@@ -80,8 +80,8 @@
         <div class="container">
             <div data-bind="foreach: words">
 
-                <div class="row">
-                    <div class="row" data-bind="foreach: { data: word.split('').reverse().join(''), as: 'letter' }">
+                <div class="box">
+                    <div class="box" data-bind="foreach: { data: word.split('').reverse().join(''), as: 'letter' }">
                         <span class="letter col-1  border border-danger"
                             data-bind="visible: $root.isHidden(letter)"></span>
                         <span class="letter col-1  border border-success"

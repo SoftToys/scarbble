@@ -3,7 +3,7 @@ class AppViewModel {
         * @param {Object} config - game config
         * @param {string} config.gameName - Game Name
         * @param {string} config.riddleTextEncrypted - riddle full
-        * @param {string} config.correctAnswerHased - base64 of hased answer
+        * @param {string[]} config.correctAnswersHased - base64 of hased possible answers
         * @param {number} config.maxTries - The employee's department.
         * @param {string} config.gameId - game id
         * @param {string} config.freeLetters - freeLetters
@@ -22,7 +22,7 @@ class AppViewModel {
         this.manualCode = ko.observable();
         this.badTryText = config.badTryText;
         this.maxTriesReachedText = config.maxTriesReachedText;
-        this.correctAnswerHashed = config.correctAnswerHased;
+        this.correctAnswersHashed = config.correctAnswersHased;
         this.maxTries = config.maxTries;
         this.answer = ko.observable('');
         this.tries = localStorage.getItem(`${config.gameId}#tries`) || 0;
@@ -204,7 +204,7 @@ class AppViewModel {
             localStorage.setItem(`${this.gameId}#tries`, this.tries);
             const hashedAnswer = await this.digestMessage(this.answer().trim());
 
-            if (this.correctAnswerHashed == hashedAnswer) {
+            if (this.correctAnswersHashed.indexOf(hashedAnswer) >= 0) {
                 this.winDate(new Date().getTime());
                 localStorage.setItem(`${this.gameId}#wonDate`, new Date().getTime());
             } else {
