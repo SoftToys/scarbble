@@ -78,3 +78,6 @@ video{
 .clue-label{
     padding-right: 5px;
 }
+.hide{
+    display: none;
+}
