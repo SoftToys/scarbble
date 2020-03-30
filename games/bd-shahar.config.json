@@ -1,0 +1,45 @@
+{
+    "gameName": "יומולדת",
+    "gameId": 105,
+    "maxTries": 2,
+    "greet": "מזל טוב שחר",
+    "riddleTextEncrypted": "JUQ3JTkwJUQ3JTk5JUQ3JTlBJTIwJUQ3JUE3JUQ3JUE4JUQ3JTkwJUQ3JUFBJUQ3JTk5JTIwJUQ3JTlDJUQ3JTk1JTIwJUQ3JTlCJUQ3JUE5JUQ3JUEwJUQ3JTk1JUQ3JTlDJUQ3JTkzJTIwJTNG",
+    "correctAnswersHased": [
+        "gTlqPWLDRnSyZ5awtA+A0CydHbEEYldBwuIoqS0VbDQ="
+    ],
+    "freeLetters": [
+        "ל",
+        "ך",
+        "כ",
+        "ת",
+        "?"
+    ],
+    "badTryText": "לא נכון! זהירות נשאר רק עוד נסיון אחד",
+    "maxTriesReachedText": "צטערת!!\n לא בא בלובה בחיים שלך",
+    "codesHelpArray": [
+        {
+            "text": "באיזור החניון נעול לו זיכרון אהוב"
+        },
+        {
+            "text": " בקומת המעבר לחיים הבוגרים, כשאוכלים הרבה אוכל צריך להוציא אותו "
+        },
+        {
+            "text": "כשמקבלים מכתב צריך לחפש טוב טוב"
+        },
+        {
+            "text": "אחרי היציאה לחופש הירוק מסתתר לו"
+        },
+        {
+            "text": "בחדר הטלוויזיה יש מי ששולט על העיניינים"
+        },
+        {
+            "text": "מתחת לכפתור הבריחה"
+        },
+        {
+            "text": "בפיקוד של הצבע האדום"
+        },
+        {
+            "text": "מוביל הגוזלים יכול להפתיע"
+        }
+    ]
+}

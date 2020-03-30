@@ -81,3 +81,20 @@ video{
 .hide{
     display: none;
 }
+
+.greet-label{
+    transform: rotate(-45deg);
+    width: 150px;
+    display: inline-block;
+    background-color: orchid;
+    text-align: center;
+    margin-top: 22px;
+    margin-left: -40px;
+    height: 25px;
+    border-top: 1px solid rgb(0, 0, 0); ;
+    border-bottom: 1px solid rgb(0, 0, 0);    
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}

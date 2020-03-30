@@ -10,6 +10,7 @@ class AppViewModel {
         * @param {string} config.badTryText - badTryText
         * @param {string} config.maxTriesReachedText - maxTriesReachedText
         * @param {object[]} config.codesHelpArray - codes Help texts
+        * @param {string} config.greet - game label
      */
     constructor(config) {
         this.shouldShowHelp = ko.observable(localStorage.getItem(`${config.gameId}#shouldShowHelp`) || true);
@@ -18,6 +19,7 @@ class AppViewModel {
             return t;
         });
         this.gameName = config.gameName;
+        this.greet = config.greet || "מזל טוב";
         this.enterCode = ko.observable(false);
         this.manualCode = ko.observable();
         this.badTryText = config.badTryText;

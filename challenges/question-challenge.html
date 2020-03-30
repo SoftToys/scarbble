@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>צייד הקודים</title>
+    <link rel="icon" href="favicon.ico" type="image/gif" sizes="16x16">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../main.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
+    <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css"
+        integrity="sha384-vus3nQHTD+5mpDiZ4rkEPlnkcyTP+49BhJ4wJeJunw06ZAp+wzzeBPUXr42fi8If" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js"
+        integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <style>
+        canvas {
+            border: 2px solid lightskyblue;
+        }
+    </style>
+</head>
+
+<body class="text-right">
+    <div class="greet-label" data-bind="text: greet"></div>
+    <div class="container-fluid text-center">
+        <div class="display-1"> אתגר! </div>
+        <div class="text-danger" data-bind="text: err"> </div>
+        <div id="challange">
+            <div id="qna">
+                <div class="h3" data-bind="text: q">
+                </div>
+                <div class="answers" data-bind="foreach: answers">
+                    <button class="btn btn-success col-3 m-1"
+                        data-bind="text: $data, click: $parent.tryAnswer"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function getRandomInt(min, max) {
+            min = Math.ceil(min);
+            max = Math.floor(max);
+            return Math.floor(Math.random() * (max - min)) + min; //The maximum is exclusive and the minimum is inclusive
+        }
+
+        //http://localhost/image-challange.html?l=JUQ3JTkw&qs=%5B%7B%22q%22%3A%22%D7%9B%D7%9E%D7%94%20%D7%90%D7%A0%D7%A9%D7%99%D7%9D%22%2C%22a%22%3A%5B1%2C2%5D%2C%22co%22%3A2%7D%2C%7B%22q%22%3A%222%20%D7%9B%D7%9E%D7%94%20%D7%90%D7%A0%D7%A9%D7%99%D7%9D%22%2C%22a%22%3A%5B%22one%22%2C%22%D7%90%D7%9E%D7%99%D7%A8%22%5D%2C%22co%22%3A1%7D%5D&src=https://lh3.googleusercontent.com/Bf_a3Ys__D_Gh3pqOq0_l4Wa7Traul507xpgLmfG9V6KYQAo_ejKo7_CgM_hQD6PHQh_oq-ILzNBnoweXCi1RpWaTy7LKK3mDzEWKSTzBgHTsV_lwQS-kVNkhiBMd7bNQGX3tlKsmqieyIEpiAl6bF4epJn4YFrwAOn5Gsj4h2AbXr23QOrshUiAJG8rZcBkXDYcSNn-Kux_AXwWf9CllSPjMUafXrGPqwqemlJMn9y-knPG7XIZ1o-UU-qX3uO9Ol4oozZFEVmdt9PiowuSQ5_SbrKGhkCEAMkiCW3fTdq1fs3fkwJY66avHqj0qG6qiB6URrC8YPl4BkNfdW1ICp-5-zQwx48zY30xyrQy-3xSBALzP77B1LJTTXNQKJxAFBtnUwAmFlnuFDnm9IJCEwJz3Rxz6lsB0rxIzWXHHh5wVQ9g_9DuX203vKMqqgrxk1iH0-ttFrL3cp9ipOVd8c_oWssNIhJzD0Z60vQy12vNeJxkdpUkYIbLa58PrEAyX1SLpblQKvxv_8pdhJD2auBkmjDmAazQNIlM8EpQBqFM7hKBvU7WDSaccPImCKn6PAIFtqT_G2E9BOqaSWZIsrhYvPF1-TZprR6Joh_tpNe3HzfSLN0zUs3EQUjIYPKdTV3GBhW0nyCm0tv63JG5sndG7_Ad1_UWWWQ8VBanQOfQ4t9U_swTwG19svsrfDNqjkSHtih7yBFMo-fwnH3b0hLz0olZrKCN1fJqt2vBQgS2KgaB6TOJHqEs=w1250-h937-no
+        // query string:
+        /*
+         l letter => btoa(encodeURIComponent("א"))
+         qs object => JSON.stringify({q:"כמה אנשים", a:[1,2],co:2})        
+        */
+        class MyViewModel {
+            q;
+            answers = [];
+            err = ko.observable('');;
+            letter;
+            greet;
+            constructor(model) {
+
+                const theQ = question;
+                this.q = theQ.q;
+                this.answers = theQ.a;
+                this.correctAnswer = theQ.co;
+                this.letter = model.l;
+                this.greet = model.g || "מזל טוב";
+            }
+
+            tryAnswer = (answer) => {
+                const success = answer == this.correctAnswer;
+                if (!success) {
+                    this.err("לא נכון, תצטרכו לחכות קצת ואז לסרוק שוב!");
+                    document.getElementById("qna").classList.add("hide");
+                } else {
+                    window.location.href = `../index.html?l=${this.letter}`;
+                }
+            }
+        }
+        var urlParams = new URLSearchParams(window.location.search);
+        const question = JSON.parse(decodeURIComponent(urlParams.get(`qs`)));
+        const l = urlParams.get(`l`);
+        const g = decodeURIComponent(urlParams.get(`g`));
+
+        ko.applyBindings(new MyViewModel({ question, l, g }));
+        // const TIME_TO_START_MS = 8000;
+        // const TIME_TO_VIEW_MS = 4000;
+        // setTimeout(() => {
+        //     document.getElementById("help").classList.add("hide");
+        //     document.getElementById("challange").classList.remove("hide");
+        //     setTimeout(() => {
+        //         document.getElementById("question").classList.add("hide");
+        //         document.getElementById("qna").classList.remove("hide");
+        //     }, TIME_TO_VIEW_MS)
+        // }, TIME_TO_START_MS);
+
+
+
+
+    </script>
+    </div>
+</body>
+
+</html>

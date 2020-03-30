@@ -27,25 +27,28 @@
     </style>
 </head>
 
-<body class="container-fluid text-center">
-    <div class="display-1"> אתגר! </div>
-    <div class="text-danger" data-bind="text: err"> </div>
-    <div id="help">
-        <div class="h4">בעוד כמה שניות תוצג לכם תמונה ומיד לאחריה שאלה, נסו להסתכל על כמה שיותר פרטים בתמונה </div>
-    </div>
+<body class="text-right">
+    <div class="greet-label" data-bind="text: greet"></div>
+    <div class="container-fluid text-center">
+        <div class="display-1"> אתגר! </div>
+        <div class="text-danger" data-bind="text: err"> </div>
+        <div id="help">
+            <div class="h4">בעוד כמה שניות תוצג לכם תמונה ומיד לאחריה שאלה, נסו להסתכל על כמה שיותר פרטים בתמונה </div>
+        </div>
 
-    <div id="challange" class="hide">
-        <div id="question">
-            <img class="img-fluid" data-bind="attr: { src: src}" src="">
-        </div>
-        <div id="qna" class="hide">
-            <div class="h3" data-bind="text: q">
+        <div id="challange" class="hide">
+            <div id="question">
+                <img class="img-fluid" data-bind="attr: { src: src}" src="">
             </div>
-            <div class="answers" data-bind="foreach: answers">
-                <button class="btn btn-success col-1" data-bind="text: $data, click: $parent.tryAnswer"></button>
+            <div id="qna" class="hide">
+                <div class="h3" data-bind="text: q">
+                </div>
+                <div class="answers" data-bind="foreach: answers">
+                    <button class="btn btn-success col-3 m-1"
+                        data-bind="text: $data, click: $parent.tryAnswer"></button>
+                </div>
             </div>
         </div>
-    </div>
     </div>
     <script>
         function getRandomInt(min, max) {
@@ -71,6 +74,7 @@
             answers = [];
             err = ko.observable('');;
             letter;
+            greet;
             constructor(model) {
                 this.src = model.src;
                 const theQ = questions[getRandomInt(0, questions.length)]
@@ -78,6 +82,7 @@
                 this.answers = theQ.a;
                 this.correctAnswer = theQ.co;
                 this.letter = model.l;
+                this.greet = model.g || "מזל טוב";
             }
 
             tryAnswer = (answer) => {
@@ -94,8 +99,9 @@
         const questions = JSON.parse(decodeURIComponent(urlParams.get(`qs`)));
         const src = decodeURIComponent(urlParams.get(`src`));
         const l = urlParams.get(`l`);
+        const g = decodeURIComponent(urlParams.get(`g`));
 
-        ko.applyBindings(new MyViewModel({ src, questions, l }));
+        ko.applyBindings(new MyViewModel({ src, questions, l, g }));
         const TIME_TO_START_MS = 8000;
         const TIME_TO_VIEW_MS = 4000;
         setTimeout(() => {
@@ -111,6 +117,7 @@
 
 
     </script>
+    </div>
 </body>
 
 </html>
