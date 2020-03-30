@@ -3,43 +3,55 @@
     "gameId": 105,
     "maxTries": 2,
     "greet": "מזל טוב שחר",
-    "riddleTextEncrypted": "JUQ3JTkwJUQ3JTk5JUQ3JTlBJTIwJUQ3JUE3JUQ3JUE4JUQ3JTkwJUQ3JUFBJUQ3JTk5JTIwJUQ3JTlDJUQ3JTk1JTIwJUQ3JTlCJUQ3JUE5JUQ3JUEwJUQ3JTk1JUQ3JTlDJUQ3JTkzJTIwJTNG",
+    "riddleTextEncrypted": "JUQ3JTkwJUQ3JTk5JUQ3JTk2JUQ3JTk0JTIwJUQ3JTlCJUQ3JTk1JUQ3JTlCJUQ3JTkxJTIwJUQ3JTlFJUQ3JTk1JUQ3JUE0JUQ3JTk5JUQ3JUEyJTIwJUQ3JTkxJUQ3JUEyJUQ3JTlDJUQ3JTk1JUQ3JUFBJTIwJUQ3JTk0JUQ3JUE5JUQ3JTk3JUQ3JUE4",
     "correctAnswersHased": [
-        "gTlqPWLDRnSyZ5awtA+A0CydHbEEYldBwuIoqS0VbDQ="
+        "R0tMh/G39o98RnnkfljxGTjdKl8noqZOWO4DYMP+a28=",
+        "raK3TxYX6U3yeAblHwoHJysIINOHrsbUP0RfNIA2g1s=",
+        "e/Wy5Dr6n3/mztSA5+xL31rt2/6Uz9jqgfWQfw13IFM=",
+        "6zhKpacLIXp07MPgney3gEDOQdqCNNnPii1h7LLSF30=",
+        "qqMKidEgOhhuvOj9XySPi2H0IPOGARSO7uWJTdndQcg="
     ],
     "freeLetters": [
         "ל",
-        "ך",
-        "כ",
         "ת",
-        "?"
+        "ה",
+        "א"
     ],
     "badTryText": "לא נכון! זהירות נשאר רק עוד נסיון אחד",
-    "maxTriesReachedText": "צטערת!!\n לא בא בלובה בחיים שלך",
+    "maxTriesReachedText": "נו באמת ... מה נסגר איתכם??? נכשלתם !",
     "codesHelpArray": [
         {
-            "text": "באיזור החניון נעול לו זיכרון אהוב"
+            "text": "איפה שלפעמים מסריח, יש קוד בתחת של הקוץ"
         },
         {
-            "text": " בקומת המעבר לחיים הבוגרים, כשאוכלים הרבה אוכל צריך להוציא אותו "
+            "text": "במיטה של העוזר האלקטרוני"
         },
         {
-            "text": "כשמקבלים מכתב צריך לחפש טוב טוב"
+            "text": "בתחת של כיסא ההסעדה של החמוד"
         },
         {
-            "text": "אחרי היציאה לחופש הירוק מסתתר לו"
+            "text": "אחרי שפותחים את דלת של החשמל, בחדר שמתנקים הקטנים"
         },
         {
-            "text": "בחדר הטלוויזיה יש מי ששולט על העיניינים"
+            "text": "מי שמתחשב בעוצמת המוזיקה"
         },
         {
-            "text": "מתחת לכפתור הבריחה"
+            "text": "מי שזכינו בו בלונה פארק מסתיר מתחת לשומנים"
         },
         {
-            "text": "בפיקוד של הצבע האדום"
+            "text": "בבנק הבית הרובוטים מסתירים אוצר"
         },
         {
-            "text": "מוביל הגוזלים יכול להפתיע"
+            "text": "מי שמחליף,חייב לפתוח את המגירה"
+        },
+        {
+            "text": "כשמנגנים כדאי להסתכל על התווים"
+        },
+        {
+            "text": "המגביר קול בסלון מתגלגל"
+        },
+        {
+            "text": "כדאי לדוג ביחד עם הפיצפון"
         }
     ]
 }

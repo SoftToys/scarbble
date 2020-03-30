@@ -7,7 +7,7 @@ body * {
 
 .nokia {
 	position: absolute; top: 0; bottom: 0; left: 50%; margin-left: -500px; width: 1000px;
-	background-image: url('../img/nokia.jpg');
+	background-image: url('nokia.jpg');
 	background-position: -195px -508px;
 	background-repeat: no-repeat;
 } 

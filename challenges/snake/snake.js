@@ -48,7 +48,7 @@ $(function () {
 	function startNewGame() {
 		clearInterval(runInterval);
 		setTimeout(function () {
-			alert("השג לפחות 6 תפוחים! אתגר");
+			alert(" אתגר לפניך!  \nהשג לפחות 6 תפוחים !\n השתמש בכפתורים 2,8,4,6  ");
 			start_again = false;
 			$(".block").each(function () {
 				$(this).removeClass();
@@ -59,7 +59,7 @@ $(function () {
 			$(".snake").show();
 			$(".points .text").text("");
 			runInterval = setInterval(run, difficulty);
-		}, 3000);
+		}, 1500);
 	}
 	function increaseLevel() {
 		difficulty = Math.max(60, difficulty - 15);
@@ -74,6 +74,9 @@ $(function () {
 		var nextHeadPos = getNextPosition(headPos);
 
 		if (isCollision(nextHeadPos)) {
+			if (points >= 6) {
+				document.dispatchEvent(new Event('game-won'));
+			}
 			start_again = true;
 			setTimeout(function () {
 				commands = [];
@@ -91,9 +94,6 @@ $(function () {
 			placeApple();
 			points += 1;
 			increaseLevel();
-			if (points >= 6) {
-				document.dispatchEvent(new Event('game-won'));
-			}
 		}
 		getBlock(nextHeadPos).addClass("snake-body");
 
