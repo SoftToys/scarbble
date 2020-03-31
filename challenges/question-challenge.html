@@ -57,15 +57,15 @@
          qs object => JSON.stringify({q:"כמה אנשים", a:[1,2],co:2})        
         */
         class MyViewModel {
-            q;
+            q = undefined;
             answers = [];
             err = ko.observable('');;
-            letter;
-            greet;
+            letter = undefined;
+            greet = undefined;
             constructor(model) {
 
-                const theQ = question;
-                this.q = theQ.q;
+                const theQ = model.data;
+                this.q = theQ.qs;
                 this.answers = theQ.a;
                 this.correctAnswer = theQ.co;
                 this.letter = model.l;
@@ -83,11 +83,11 @@
             }
         }
         var urlParams = new URLSearchParams(window.location.search);
-        const question = JSON.parse(decodeURIComponent(urlParams.get(`qs`)));
+        const data = JSON.parse(decodeURIComponent(urlParams.get("data")));
         const l = urlParams.get(`l`);
-        const g = decodeURIComponent(urlParams.get(`g`));
+        const g = decodeURIComponent(urlParams.get(`g`) || "מזל טוב");
 
-        ko.applyBindings(new MyViewModel({ question, l, g }));
+        ko.applyBindings(new MyViewModel({ data, l, g }));
         // const TIME_TO_START_MS = 8000;
         // const TIME_TO_VIEW_MS = 4000;
         // setTimeout(() => {

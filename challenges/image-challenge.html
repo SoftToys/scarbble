@@ -69,15 +69,15 @@
         src imaga link => encodeURIComponent("http://someimagelink.com/img.jpg")
         */
         class MyViewModel {
-            src;
-            q;
+            src = undefined;
+            q = undefined;
             answers = [];
             err = ko.observable('');;
-            letter;
-            greet;
+            letter = undefined;
+            greet = undefined;
             constructor(model) {
                 this.src = model.src;
-                const theQ = questions[getRandomInt(0, questions.length)]
+                const theQ = model.questions[getRandomInt(0, model.questions.length)]
                 this.q = theQ.q;
                 this.answers = theQ.a;
                 this.correctAnswer = theQ.co;
@@ -96,10 +96,11 @@
             }
         }
         var urlParams = new URLSearchParams(window.location.search);
-        const questions = JSON.parse(decodeURIComponent(urlParams.get(`qs`)));
-        const src = decodeURIComponent(urlParams.get(`src`));
+        const data = JSON.parse(decodeURIComponent(urlParams.get("data")));
+        const questions = data.qs;
+        const src = decodeURIComponent(data.src);
         const l = urlParams.get(`l`);
-        const g = decodeURIComponent(urlParams.get(`g`));
+        const g = decodeURIComponent(urlParams.get(`g`) || "מזל טוב");
 
         ko.applyBindings(new MyViewModel({ src, questions, l, g }));
         const TIME_TO_START_MS = 8000;

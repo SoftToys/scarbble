@@ -34,7 +34,7 @@ $(function () {
 
 	function initStartingVars() {
 		direction = 1;
-		difficulty = 140;
+		difficulty = 160;
 		snakeSize = 4;
 		snakeBody = new Array({
 			x: 2,
