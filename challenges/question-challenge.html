@@ -7,7 +7,6 @@
     <title>צייד הקודים</title>
     <link rel="icon" href="favicon.ico" type="image/gif" sizes="16x16">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="../main.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.5.0/knockout-min.js"></script>
     <link rel="stylesheet" href="https://cdn.rtlcss.com/bootstrap/v4.2.1/css/bootstrap.min.css"
         integrity="sha384-vus3nQHTD+5mpDiZ4rkEPlnkcyTP+49BhJ4wJeJunw06ZAp+wzzeBPUXr42fi8If" crossorigin="anonymous">
@@ -20,11 +19,7 @@
         crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
         integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-    <style>
-        canvas {
-            border: 2px solid lightskyblue;
-        }
-    </style>
+    <link href="../main.css" rel="stylesheet">
 </head>
 
 <body class="text-right" style="direction: rtl;">
@@ -32,6 +27,7 @@
     <div class="container-fluid text-center">
         <div class="display-1"> אתגר! </div>
         <div class="text-danger" data-bind="text: err"> </div>
+        <button id="try-again" class="btn hide btn-danger " data-bind="click: tryAgain"> נסה שוב</button>
         <div id="challange">
             <div id="qna">
                 <div class="h3" data-bind="text: q">
@@ -71,12 +67,15 @@
                 this.letter = model.l;
                 this.greet = model.g || "מזל טוב";
             }
-
+            tryAgain = () => { window.location.reload(); }
             tryAnswer = (answer) => {
                 const success = answer == this.correctAnswer;
                 if (!success) {
                     this.err("לא נכון, תצטרכו לחכות קצת ואז לסרוק שוב!");
                     document.getElementById("qna").classList.add("hide");
+                    setTimeout(() => {
+                        document.getElementById("try-again").classList.remove('hide');
+                    }, 15 * 1000)
                 } else {
                     window.location.href = `../index.html?l=${this.letter}`;
                 }

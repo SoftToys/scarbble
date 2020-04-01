@@ -159,9 +159,11 @@
                         const challangeId = Number(urlParams.get(`challenge`));
                         var c = conf.challenges[challangeId];
                         const object = Object.assign(
-                            { data: JSON.stringify(c["challenge-data"]) }, {
-                            l: urlParams.get(`l`)
-                        });
+                            { data: JSON.stringify(c["challenge-data"]) },
+                            {
+                                l: urlParams.get(`l`),
+                                g: conf.greet || "מזל טוב"
+                            });
                         window.location = `challenges/${c.challenge}.html?${new URLSearchParams(object).toString()}`;
                     } else {
                         var app = new AppViewModel(conf);
