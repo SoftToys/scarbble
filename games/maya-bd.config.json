@@ -1,0 +1,205 @@
+{
+    "gameName": "יומולדת",
+    "gameId": 200,
+    "maxTries": 2,
+    "greet": "מזל טוב מיה",
+    "riddleTextEncrypted": "JUQ3JTlFJUQ3JTk0JTIwJUQ3JTkwJUQ3JTlFJUQ3JTkwJTIwJUQ3JTk0JUQ3JTlCJUQ3JTk5JTIwJUQ3JTkwJUQ3JTk1JUQ3JTk0JUQ3JTkxJUQ3JUFBJTIwJUQ3JTlDJUQ3JTk3JUQ3JUE0JUQ3JUE5JTIwJUQ3JTkxJUQ3JTkwJUQ3JTk5JUQ3JUEwJUQ3JTk4JUQ3JUE4JUQ3JUEwJUQ3JTk4JTIwJTNG",
+    "correctAnswersHased": [
+        "WHfY7aG69VQqmXyWSwT13Aj+v1AJktjTzAzKjVrSs7o=",
+        "ao6xetD6UAqYBMx1DaTyKkhvzecRY6OmGteVcF0hi6c=",
+        "BVpI8nuMjOurNV6UxIEU3YS5oDZh3+WygAyr5iIMcmA=",
+        "R2CIqZR2PoZVKf3K160t0iGbxaqRjOrokmDv4QexKG8=",
+        "UoViD5Vjj8uZc5zoKRFCED/YdRl4IsbKm69SqqYuCGQ=",
+        "pCzuoh3T8WA+HbzDe0r8OJnoXw1QBaDPtUL6hdZS6MI="
+    ],
+    "freeLetters": [
+        "ת",
+        "ר",
+        "כ",
+        "ש",
+        "?"
+    ],
+    "badTryText": "לא נכון! זהירות נשאר רק עוד נסיון אחד",
+    "maxTriesReachedText": "נו באמת ... מה נסגר איתכם??? נכשלתם !",
+    "codesHelpArray": [
+        {
+            "text": "בטוסיק של עציצים בסלון"
+        },
+        {
+            "text": "באזור הממתקים האסורים"
+        },
+        {
+            "text": "בתוך משחק הקופסא האהוב על אבא "
+        },
+        {
+            "text": "משחק הקלפים האהוב של תמרה אכל את הקוד!"
+        },
+        {
+            "text": "בתיק של אבא מתחבא אוצר"
+        },
+        {
+            "text": "בטוסיק של משמיע המוזיקה"
+        },
+        {
+            "text": "בתיק של אמא"
+        },
+        {
+            "text": "במגירה בשידה עם הצבע המוזר"
+        },
+        {
+            "text": "מגירת הלימודים של איילה - מחברת של מקצוע אהוב"
+        },
+        {
+            "text": "בתוך מחשב העבודה של אבא"
+        },
+        {
+            "text": "בטוסיק של המנורה לקריאה"
+        }
+    ],
+    "challenges": [
+        {
+            "challenge": "image-challenge",
+            "challenge-data": {
+                "src": "/games/maya-bd/maya-dumbles.jpeg",
+                "qs": [
+                    {
+                        "q": "מה שוקל יותר - המשקולות או גור?",
+                        "a": [
+                            "המשקולות",
+                            "גור",
+                            "אותו משקל"
+                        ],
+                        "co": "המשקולות"
+                    },
+                    {
+                        "q": "איזה תרגילים אבא עושה עם המשקולות?",
+                        "a": [
+                            "שיניים",
+                            "רגליים",
+                            "ידיים",
+                            "טוכעס"
+                        ],
+                        "co": "ידיים"
+                    },
+                    {
+                        "q": "מה המשקל הכולל של 2 המשקולות?",
+                        "a": [
+                            "10",
+                            "20",
+                            "30",
+                            "15"
+                        ],
+                        "co": "30"
+                    }
+                ]
+            }
+        },
+        {
+            "challenge": "image-challenge",
+            "challenge-data": {
+                "src": "/games/maya-bd/party.jpg",
+                "qs": [
+                    {
+                        "q": "כמה חטיפים וממתקים שונים יש בתמונה?",
+                        "a": [
+                            "3",
+                            "4",
+                            "5",
+                            "2"
+                        ],
+                        "co": "4"
+                    },
+                    {
+                        "q": "איפה צולמה התמונה?",
+                        "a": [
+                            "יחיעם",
+                            "הולנד",
+                            "נהרייה",
+                            "נצרת",
+                            "בבית"
+                        ],
+                        "co": "נהרייה"
+                    },
+                    {
+                        "q": "מי עומד הכי קרוב למצלמה?",
+                        "a": [
+                            "איילה",
+                            "נטע",
+                            "תמרה",
+                            "לולי"
+                        ],
+                        "co": "איילה"
+                    }
+                ]
+            }
+        },
+        {
+            "challenge": "question-challenge",
+            "challenge-data": {
+                "qs": "מה סכום שנות הלידה של המשפחה הגרעינית?",
+                "a": [
+                    8000,
+                    7985,
+                    7999,
+                    8001,
+                    7906
+                ],
+                "co": 7985
+            }
+        },
+        {
+            "challenge": "image-challenge",
+            "challenge-data": {
+                "src": "/games/maya-bd/boaz-drinks.jpeg",
+                "qs": [
+                    {
+                        "q": "איזו חיה מסתתרת בתמונה?",
+                        "a": [
+                            "קוף",
+                            "נמר וירטואלי גמדי",
+                            "אוגר שנמלט",
+                            "ג'וק"
+                        ],
+                        "co": "נמר וירטואלי גמדי"
+                    },
+                    {
+                        "q": "מה זה הדבר עם הרצועה הורודה ליד המחשב של אבא?",
+                        "a": [
+                            "השעון של תמרה",
+                            "המשכורת של אבא",
+                            "חיידק הקורונה"
+                        ],
+                        "co": "השעון של תמרה"
+                    },
+                    {
+                        "q": "כמה זוגות כפכפים יש בתמונה",
+                        "a": [
+                            "4",
+                            "2",
+                            "אין כלום..",
+                            "1"
+                        ],
+                        "co": "2"
+                    }
+                ]
+            }
+        },
+        {
+            "challenge": "question-challenge",
+            "challenge-data": {
+                "qs": "איזה אות אין לאף אחד מהמשפחה הגרעינית בשם?",
+                "a": [
+                    "ה",
+                    "כ",
+                    "ע",
+                    "ר"
+                ],
+                "co": "כ"
+            }
+        },
+        {
+            "challenge": "snake/index",
+            "challenge-data": {}
+        }
+    ]
+}
