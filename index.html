@@ -142,37 +142,43 @@
         </div>
     </div>
     <script>
-        var urlParams = new URLSearchParams(window.location.search);
-        if (urlParams.get(`gameid`)) {
-            window.localStorage.setItem("gameid", urlParams.get(`gameid`));
-            window.location = window.location.href.split('?')[0];
-        }
-        else {
-            const gameId = localStorage.getItem(`gameid`);
-            if (!gameId) {
-                alert("גישה לא חוקית למשחק!")
+        try {
+
+            var urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get(`gameid`)) {
+                window.localStorage.setItem("gameid", urlParams.get(`gameid`));
+                window.location = window.location.href.split('?')[0];
             }
             else {
-                $.getJSON(`./games/${gameId}.config.json?t=${new Date().getTime()}`, (conf) => {
-                    window.document.title = conf.gameName;
-                    if (conf.challenges && conf.challenges.length > 0 && urlParams.get(`challenge`)) {
-                        const challangeId = Number(urlParams.get(`challenge`));
-                        var c = conf.challenges[challangeId];
-                        const object = Object.assign(
-                            { data: JSON.stringify(c["challenge-data"]) },
-                            {
-                                l: urlParams.get(`l`),
-                                g: conf.greet || "מזל טוב"
-                            });
-                        window.location = `challenges/${c.challenge}.html?${new URLSearchParams(object).toString()}`;
-                    } else {
-                        var app = new AppViewModel(conf);
-                        ko.applyBindings(app);
-                        $("#game-board").show();
-                    }
-                });
+                const gameId = localStorage.getItem(`gameid`);
+                if (!gameId) {
+                    alert("גישה לא חוקית למשחק!")
+                }
+                else {
+                    $.getJSON(`./games/${gameId}.config.json?t=${new Date().getTime()}`, (conf) => {
+                        window.document.title = conf.gameName;
+                        if (conf.challenges && conf.challenges.length > 0 && urlParams.get(`challenge`)) {
+                            const challangeId = Number(urlParams.get(`challenge`));
+                            var c = conf.challenges[challangeId];
+                            const object = Object.assign(
+                                { data: JSON.stringify(c["challenge-data"]) },
+                                {
+                                    l: urlParams.get(`l`),
+                                    g: conf.greet || "מזל טוב"
+                                });
+                            window.location = `challenges/${c.challenge}.html?${new URLSearchParams(object).toString()}`;
+                        } else {
+                            var app = new AppViewModel(conf);
+                            ko.applyBindings(app);
+                            $("#game-board").show();
+                        }
+                    });
+                }
             }
+        } catch (error) {
+            alert(JSON.stringify(error));
         }
+
     </script>
 </body>
 
